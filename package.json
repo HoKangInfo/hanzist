@@ -1,0 +1,25 @@
+{
+  "name": "hanzist",
+  "version": "0.0.1",
+  "description": "some util function about hanzi.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HoKangInfo/hanzist.git"
+  },
+  "keywords": [
+    "hanzi",
+    "normalize",
+    "CJK",
+    "unicode"
+  ],
+  "author": "Robin JH Kang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HoKangInfo/hanzist/issues"
+  },
+  "homepage": "https://github.com/HoKangInfo/hanzist#readme"
+}
