@@ -3,6 +3,7 @@ some util function about hanzi.
 一些處理漢字的函式工具. 
 
 ### History ###
+0.0.2 新增 `fullwidthCase` 轉全形字, `halfwidthCase` 轉半形字
 0.0.1 目前只有 `normalize` 
 
 ### Install ###
@@ -11,6 +12,7 @@ some util function about hanzi.
 ```
 
 ### How to use it ###
+`normalize`,
 ```
 const hanzist = require('hanzist');
 
@@ -20,7 +22,6 @@ var str = 'he羅, ㆗\u{3246}';
 hanzist.normalize(str);
 // => 'he羅, 中文'
 ```
-
 `normalize` 會將字碼在 
 
 - Kanbun(0x3190 ~ 0x319F, 古典日文中使用來指示閱讀順序的註釋字符), 
@@ -34,7 +35,29 @@ hanzist.normalize(str);
 
 中的字盡量改為位在 0x4E00 ~ 0x9FFF 之間的字. 讓異體或含中文的特殊符號, 盡量以相同的字碼統一顯示.
 
+`fullwidthCase`, `halfwidthCase`
+```
+var str = '［￡\u{FF5E}£]中文1２3';
+// => '［￡～£]中文1２3'
 
+hanzist.fullwidthCase(str);
+// => '［￡～￡］中文１２３'
+
+hanzist.halfwidthCase(str);
+// => '[£~£]中文123'
+```
+
+`fullwidthCase` 會將字串內的字轉為全形字, `halfwidthCase` 會將字串內的字轉為半形字. 第二參數可支援片假名與韓文. 
+```
+var str = '片假名:\u{FF90}, 韓文:\u{FFB0}';
+// => '片假名:ﾐ, 韓文:ﾰ'
+
+hanzist.fullwidthCase(str,['Katakana']);
+// => '片假名：ミ，　韓文：ﾰ'
+
+hanzist.fullwidthCase(str,['Hangul']);
+// => '片假名：ﾐ，　韓文：ㅀ'
+```
 
 ### API ###
 
@@ -49,4 +72,17 @@ options (Array): The alt word tables. default all. 目前可用的 [('Kanbun|Enc
 Returns
 
 (String): Returns the normalize string.
+```
+
+`fullwidthCase(str, fontset)`, `halfwidthCase(str, fontset)`
+```
+Arguments
+
+str (String): The string to widthcase. 
+
+fontset (['Katakana'|'Hangul']): 目前可用的 'Katakana'(片假名)與, 'Hangul'(韓文). 
+
+Returns
+
+(String): Returns the fullwidth or halfwidth string.
 ```

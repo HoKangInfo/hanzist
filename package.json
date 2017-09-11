@@ -1,7 +1,7 @@
 {
   "name": "hanzist",
-  "version": "0.0.1",
-  "description": "some util function about hanzi.",
+  "version": "0.0.2",
+  "description": "some util function about hanzi. (一些處理漢字的函式工具)",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
