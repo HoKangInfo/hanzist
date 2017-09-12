@@ -3,8 +3,8 @@ some util function about hanzi.
 一些處理漢字的函式工具. 
 
 ### History ###
-0.0.2 新增 `fullwidthCase` 轉全形字, `halfwidthCase` 轉半形字
-0.0.1 目前只有 `normalize` 
+- 0.0.2 新增 `fullwidthCase` 轉全形字, `halfwidthCase` 轉半形字
+- 0.0.1 目前只有 `normalize` 
 
 ### Install ###
 ```
@@ -78,7 +78,7 @@ Returns
 ```
 Arguments
 
-str (String): The string to widthcase. 
+str (String): The string to fullwidth or halfwidth. 
 
 fontset (['Katakana'|'Hangul']): 目前可用的 'Katakana'(片假名)與, 'Hangul'(韓文). 
 
