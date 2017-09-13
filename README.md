@@ -3,6 +3,7 @@ some util function about hanzi.
 一些處理漢字的函式工具. 
 
 ### History ###
+- 0.0.3 新增 `isFullwidth` 單字是否為全形字, `fontwidth` 計算字寬 
 - 0.0.2 新增 `fullwidthCase` 轉全形字, `halfwidthCase` 轉半形字
 - 0.0.1 目前只有 `normalize` 
 
@@ -59,6 +60,30 @@ hanzist.fullwidthCase(str,['Hangul']);
 // => '片假名：ﾐ，　韓文：ㅀ'
 ```
 
+`isFullwidth` 判斷單字是否為全形字,
+```
+var str = '中文1２3';
+hanzist.isFullwidth(str[0]);
+// => true
+
+hanzist.isFullwidth(str.charCodeAt(0));
+// => true
+
+hanzist.isFullwidth(str[2]);
+// => false
+```
+
+`fontwidth` 計算字寬, 全形字長度為 2, 控制或合併複合字為 0, 其他為 1. 全形字以 unicode 標示為 full-width 或 wide 為準.
+```
+var str = '中文1２3';
+hanzist.fontwidth(str);
+// => 8
+
+var str = '中文\n1２3';
+// => 8
+```
+判斷字寬, 借用 [east-asian-width](https://github.com/vangie/east-asian-width)建立的 `code_point_utils`, 感謝 [Vangie Du](https://github.com/vangie). 但因為 `east-asian-width` v0.1.1 在計算字寬上對 `codepoint` 的判斷有些問題, 故並未使用其 `char_width` 函式. 且因為應用上需求不同, 原 `east-asian-width` 對控制字元傳回 `2`, 但 `fontwidth` 因其不可見而傳回 `0`.
+
 ### API ###
 
 `normalize(str, options)`
@@ -85,4 +110,26 @@ fontset (['Katakana'|'Hangul']): 目前可用的 'Katakana'(片假名)與, 'Hang
 Returns
 
 (String): Returns the fullwidth or halfwidth string.
+```
+
+`isFullwidth(cp)`
+```
+Arguments
+
+cp (String|Number): The codepoint or string first char. 
+
+Returns
+
+(Boolean): Returns true if fullwidth.
+```
+
+`fontwidth(str)`
+```
+Arguments
+
+str (String): The string. 
+
+Returns
+
+(Number): Returns the width.
 ```
