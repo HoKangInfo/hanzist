@@ -9,5 +9,6 @@ module.exports = {
     "fullwidthCase": font.fullwidthCase,
     "halfwidthCase": font.halfwidthCase,
     "fontwidth": font.fontwidth,
-    "isFullwidth": font.isFullwidth
+    "isFullwidth": font.isFullwidth,
+    "cutDBCHstr": font.cutDBCHstr
 };

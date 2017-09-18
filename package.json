@@ -1,6 +1,6 @@
 {
   "name": "hanzist",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "some util function about hanzi. (一些處理漢字的函式工具)",
   "main": "index.js",
   "scripts": {
@@ -11,12 +11,14 @@
     "url": "git+https://github.com/HoKangInfo/hanzist.git"
   },
   "keywords": [
-    "hanzi",
-    "normalize",
     "CJK",
-    "fullwidth",
-    "halfwidth",
+    "cut string",
     "font",
+    "fullwidth",
+    "hanzi",
+    "halfwidth",
+    "normalize",
+    "substr",
     "unicode"
   ],
   "author": "Robin JH Kang",

@@ -3,6 +3,7 @@ some util function about hanzi.
 一些處理漢字的函式工具. 
 
 ### History ###
+- 0.0.4 新增 `cutDBCHstr` 剪裁雙位元字寬字串
 - 0.0.3 新增 `isFullwidth` 單字是否為全形字, `fontwidth` 計算字寬 
 - 0.0.2 新增 `fullwidthCase` 轉全形字, `halfwidthCase` 轉半形字
 - 0.0.1 目前只有 `normalize` 
@@ -84,6 +85,19 @@ var str = '中文\n1２3';
 ```
 判斷字寬, 借用 [east-asian-width](https://github.com/vangie/east-asian-width)建立的 `code_point_utils`, 感謝 [Vangie Du](https://github.com/vangie). 但因為 `east-asian-width` v0.1.1 在計算字寬上對 `codepoint` 的判斷有些問題, 故並未使用其 `char_width` 函式. 且因為應用上需求不同, 原 `east-asian-width` 對控制字元傳回 `2`, 但 `fontwidth` 因其不可見而傳回 `0`.
 
+`cutDBCHstr` 剪裁雙位元字寬字串, 開始剪裁位置若位於雙位元字寬字(全形字)中間, 則會包含該字元; 結束剪裁位置若位於雙位元字寬字中間, 則 **不** 會包含該字元.
+```
+var str = 'The中文word';
+hanzist.cutDBCHstr(str, 1);
+// => 'e中文word'
+
+hanzist.cutDBCHstr(str, 1, 2);
+// => 'e中'
+
+hanzist.cutDBCHstr(str, 2, 2);
+// => '中文'
+```
+
 ### API ###
 
 `normalize(str, options)`
@@ -132,4 +146,19 @@ str (String): The string.
 Returns
 
 (Number): Returns the width.
+```
+
+`cutDBCHstr(str, start, length)`
+```
+Arguments
+
+str (String): The string. 
+
+start (Number): Location at which to begin extracting characters. 開始剪裁的位置. 1 是等於兩個位元字寬(一個全形字).
+
+length (Number): The number of characters to extract. 1 是等於兩個位元字寬. 沒有值會傳回開始字元後的所有字元.
+
+Returns
+
+(Number): Returns new string of the extracted. If length is 0 or a negative number, an empty string is returned. 
 ```
