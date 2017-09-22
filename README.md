@@ -3,6 +3,7 @@ some util function about hanzi.
 一些處理漢字的函式工具. 
 
 ### History ###
+- 0.0.5 fix `isString` 
 - 0.0.4 新增 `cutDBCHstr` 剪裁雙位元字寬字串
 - 0.0.3 新增 `isFullwidth` 單字是否為全形字, `fontwidth` 計算字寬 
 - 0.0.2 新增 `fullwidthCase` 轉全形字, `halfwidthCase` 轉半形字

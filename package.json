@@ -1,6 +1,6 @@
 {
   "name": "hanzist",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "some util function about hanzi. (一些處理漢字的函式工具)",
   "main": "index.js",
   "scripts": {
@@ -28,6 +28,7 @@
   },
   "homepage": "https://github.com/HoKangInfo/hanzist#readme",
   "dependencies": {
-    "east-asian-width": "^0.1.1"
+    "east-asian-width": "^0.1.1",
+    "js-group": "0.0.1"
   }
 }
