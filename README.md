@@ -3,7 +3,8 @@ some util function about hanzi.
 一些處理漢字的函式工具. 
 
 ### History ###
-- 0.0.5 fix `isString` 
+- 0.0.6 新增 `toNumber` 漢字數字轉阿拉伯數字, `isHanNumber` 判斷是否是漢字數字, `toHanNumber` 阿拉伯數字轉漢字數字
+- 0.0.5 fix `isString`
 - 0.0.4 新增 `cutDBCHstr` 剪裁雙位元字寬字串
 - 0.0.3 新增 `isFullwidth` 單字是否為全形字, `fontwidth` 計算字寬 
 - 0.0.2 新增 `fullwidthCase` 轉全形字, `halfwidthCase` 轉半形字
@@ -33,7 +34,8 @@ hanzist.normalize(str);
 - Ideographic_Telegraph_Symbols_Months(0x32C0 ~ 0x32CB, 電報文字中的 1 月到 12 月), 
 - Ideographic_Telegraph_Symbols_Hours(0x3358 ~ 0x3370, 電報文字中的 0 點到 24 點), 
 - Japanese_Era_Names_And_Corporation(0x337B ~ 0x337F, 日本年號跟公司), 
-- Ideographic_Telegraph_Symbols_Days(0x33E0 ~ 0x33FE, => 電報文字中的 1 日到 31 日), Private_Use_Area(0xE000 ~ 0xF8FF, 私有區域, 沒有統一的對應), 
+- Ideographic_Telegraph_Symbols_Days(0x33E0 ~ 0x33FE, => 電報文字中的 1 日到 31 日), 
+- Private_Use_Area(0xE000 ~ 0xF8FF, 私有區域, 沒有統一的對應), 
 - CJK_Compatibility_Ideographs(0xF900 ~ 0xFAFF, 日韓相容表意文字, 目前只編到 0xFAD9)
 
 中的字盡量改為位在 0x4E00 ~ 0x9FFF 之間的字. 讓異體或含中文的特殊符號, 盡量以相同的字碼統一顯示.
@@ -98,6 +100,71 @@ hanzist.cutDBCHstr(str, 1, 2);
 hanzist.cutDBCHstr(str, 2, 2);
 // => '中文'
 ```
+
+`toNumber` 漢字數字轉阿拉伯數字, 只支援正整數, 最大到 MAX_SAFE_INTEGER, `九千零七兆一千九百九十二億五千四百七十四萬零九百九十一`, 採萬進位, 萬以下是十進位，萬以後為萬進位，即"萬萬為億、 萬億為兆、 萬兆為京", 
+```
+hanzist.toNumber('一萬二千三百四十五')
+// => 12345
+
+hanzist.toNumber('1萬2千345')
+// => 12345
+
+hanzist.toNumber('壹萬貳千參百肆拾伍')
+// => 12345
+```
+
+漢字數字表示有幾個較特別的例子, 
+```
+// 尾數為零可不表示
+hanzist.toNumber('一萬二')
+// => 12000
+
+// 首數字為"一", 可省略
+hanzist.toNumber('萬二')
+// => 12000
+
+// 有空缺的單位需補零
+hanzist.toNumber('一萬零二')
+// => 10002
+
+// 零開頭或結尾的數字是不合法的
+hanzist.toNumber('零二')
+// => NaN
+
+// 逢萬進位, 所以"萬萬"是不合法的
+hanzist.toNumber('萬萬')
+// => NaN
+
+// 連續的單位沒有數詞表示, 是不合法的, 但首數字為一, 可省略數詞
+// ex: 萬百 => 一萬百 (x), "百"不是首數字不可省略數詞, 表示是"一萬個一百"還是"一萬零一百"?
+hanzist.toNumber('萬百')
+// => NaN
+
+// ex: 百萬 => 一百萬 (v)
+hanzist.toNumber('百萬')
+// => 1000000
+
+// ex: 萬零百 => 一萬零一百 (v), "百"前補零, 是首數字可省略數詞 
+hanzist.toNumber('萬零百')
+// => 10100
+
+// "萬"與"千"之間沒有空缺的單位, 
+hanzist.toNumber('萬零千')
+// => NaN
+```
+
+`isHanNumber` 判斷是否是漢字數字, 
+```
+hanzist.isHanNumber('萬零千')
+// => false
+```
+
+`toHanNumber` 阿拉伯數字轉漢字數字,
+```
+hanzist.toHanNumber(9007199254740991)
+// => '九千零七兆一千九百九十二億五千四百七十四萬零九百九十一'
+```
+
 
 ### API ###
 
