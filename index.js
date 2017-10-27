@@ -13,5 +13,6 @@ module.exports = {
     "cutDBCHstr": font.cutDBCHstr,
     "toNumber": numeral.toNumber,
     "isHanNumber": numeral.isHanNumber,
-    "toHanNumber": numeral.toHanNumber
+    "toHanNumber": numeral.toHanNumber,
+    "extractionHanNumber": numeral.extractionHanNumber
 };
