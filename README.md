@@ -3,8 +3,9 @@ some util function about hanzi.
 一些處理漢字的函式工具. 
 
 ### History ###
+- 0.0.12 ~ 0.0.13 fix some bug, ex: 十的前面可省略一, `一百一十八` 省略為 ‵一百十八`
 - 0.0.11 新增 `extractionHanNumber` 取出字串中含有的漢字數字
-- 0.0.7~0.0.10 fix some bug
+- 0.0.7 ~ 0.0.10 fix some bug
 - 0.0.6 新增 `toNumber` 漢字數字轉阿拉伯數字, `isHanNumber` 判斷是否是漢字數字, `toHanNumber` 阿拉伯數字轉漢字數字
 - 0.0.5 fix `isString`
 - 0.0.4 新增 `cutDBCHstr` 剪裁雙位元字寬字串
